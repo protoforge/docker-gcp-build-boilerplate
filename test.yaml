@@ -1,0 +1,9 @@
+---
+test1: myapp:0.0.0
+test2: us.gcr.io/a-project/myapp:0.0.0
+test3: "myapp:0.0.0"
+test4: "us.gcr.io/a-project/myapp:0.0.0"
+test5:
+- item1: us.gcr.io/a-project/myapp:0.0.0
+- item2: "us.gcr.io/a-project/myapp:0.0.0"
+  item2a: "myapp:0.0.0"
