@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+set -e
+#set -x
+
 PROJECT_ID=$(gcloud config list project | grep project | awk '{ print $3 }')
 IMAGE_NAME=$(cat manifest.txt | awk '{print $1}')
 IMAGE_TAG=$(cat manifest.txt | awk '{print $2}')
