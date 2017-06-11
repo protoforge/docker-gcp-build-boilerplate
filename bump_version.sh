@@ -26,6 +26,5 @@ echo "Next version: $IMAGE_NAME:$NEXT_VERSION"
 
 # Update references
 sed_cmd="s/$IMAGE_NAME:[0-9]*\.[0-9]*\.[0-9]*/$IMAGE_NAME:$NEXT_VERSION/g"
-sed -i "$sed_cmd" ./manifest.txt && \
 sed -i "$sed_cmd" ./*.yaml && \
 echo "$IMAGE_NAME $NEXT_VERSION" > "manifest.txt"
