@@ -3,16 +3,18 @@
 set -e
 #set -x
 
-if [ ! -f manifest.txt ]; then
+WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+if [ ! -f ${WORKDIR}/manifest.txt ]; then
   echo "manifest not found! Creating one..."
   read -p "Enter the app name: " new_app_name
   cleaned_app_name=$(echo $new_app_name | sed 's/\s*//g')
-  echo "$cleaned_app_name 0.0.0" > "manifest.txt"
+  echo "$cleaned_app_name 0.0.0" > "${WORKDIR}/manifest.txt"
   exit 0
 fi
 
-IMAGE_NAME=$(cat manifest.txt | awk '{print $1}')
-PREV_VERSION=$(cat manifest.txt | awk '{print $2}')
+IMAGE_NAME=$(cat ${WORKDIR}/manifest.txt | awk '{print $1}')
+PREV_VERSION=$(cat ${WORKDIR}/manifest.txt | awk '{print $2}')
 
 MAJOR_VERSION=$(echo $PREV_VERSION | cut -d '.' -f1)
 MINOR_VERSION=$(echo $PREV_VERSION | cut -d '.' -f2)
@@ -27,4 +29,4 @@ echo "Next version: $IMAGE_NAME:$NEXT_VERSION"
 # Update references
 sed_cmd="s/$IMAGE_NAME:[0-9]*\.[0-9]*\.[0-9]*/$IMAGE_NAME:$NEXT_VERSION/g"
 sed -i "$sed_cmd" ./*.yaml && \
-echo "$IMAGE_NAME $NEXT_VERSION" > "manifest.txt"
+echo "$IMAGE_NAME $NEXT_VERSION" > "${WORKDIR}/manifest.txt"
